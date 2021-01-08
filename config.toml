@@ -4,7 +4,7 @@ theme = "hugo-theme-codex"
 # Override these settings with your own
 title = "SaturdayGenfo"
 languageCode = "en-us"
-baseURL = "/"
+baseURL = "saturdaygenfo.github.io"
 copyright = "{year}"
 
 # Add your Disqus shortname here.
