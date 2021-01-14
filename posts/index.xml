@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on SaturdayGenfo</title>
+    <link>saturdaygenfo.github.io/posts/</link>
+    <description>Recent content in Posts on SaturdayGenfo</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>{year}</copyright>
+    <lastBuildDate>Fri, 27 Nov 2020 18:30:29 +0100</lastBuildDate><atom:link href="saturdaygenfo.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Symmetric gradient: an odd 40 year curiosity in matrix algebra</title>
+      <link>saturdaygenfo.github.io/posts/symmetric-gradients/</link>
+      <pubDate>Fri, 27 Nov 2020 18:30:29 +0100</pubDate>
+      
+      <guid>saturdaygenfo.github.io/posts/symmetric-gradients/</guid>
+      <description>This semester, Paul and I are working with a student, Aleksandr, on applying a sampling framework to generate random symmetric matrices. The framework being originally conceived for vectors in $\mathbb{R}^n$, we quickly ran into problems when subsitituting in matrices.
+Our difficulties arose when trying to differentiate with respect to variables in $\mathbb{S}_n(\mathbb{R})$, the set of real symmetric matrices. It turns out this symmetric gradient problem is common enough that several confusing threads on mathoverflow on the topic exist, each proposing slightly different solutions, with some, surprisingly, arguing that gradients of scalar functions of symmetric matrices aren&amp;rsquo;t well defined.</description>
+    </item>
+    
+  </channel>
+</rss>
