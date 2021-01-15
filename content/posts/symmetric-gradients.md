@@ -12,7 +12,7 @@ Differentiation is defined over abstract spaces. And the set of real symmetric m
 
 It turns out that this problem of computing gradients with respect to a symmetric matrix is common enough that several confusing threads on mathoverflow on the topic exist. Each proposing slightly different solutions, with some, surprisingly, arguing that gradients of scalar functions of symmetric matrices aren't well defined. 
 
-This doesn't make sense. Again, there should be nothing fancy required for computing gradients of symmetric matrices. Luckily for us, Shriram Srinivasan and Nishant Panda[^reference] pinpointed the root of the confusion: there were some imprecisions in the early litterature[^brewer] on the topic about what exactly we mean by _gradient_ which led to the appearance of some odd formulas. 
+This doesn't make sense. Again, there should be nothing fancy required for computing gradients of symmetric matrices. Luckily for us, Shriram Srinivasan and Nishant Panda[^reference] pinpointed the root of the confusion: there were some imprecisions in the early litterature[^brewer] on the topic about what exactly we mean by _gradient_. This is what led to the appearance of some odd formulas making obscure what should be simple. 
 
 At the heart of the matter is the question: 
 ```
@@ -238,21 +238,56 @@ $$
    $$
 The eigenvalues of $\nabla^2 \bar{f}(x)$ entirely capture the behavior of `matHess` when restricted to symmetric matrices. Now all we need is a way to compute them.
 
-Since we are living in a space with an exotic inner product, the vanilla `eigh` function of numpy/scipy won't do. Indeed, 
-    
+Since we are living in a space with an exotic inner product, the vanilla `eigh` function of numpy/scipy won't do. Indeed, the eigenvectors of the symmetric matrix $\nabla^2 \bar{f}(x)$ should define an orthormal basis in $(\mathbb{R}^m, \langle \cdot, \cdot \rangle_{D})$. To find them, we need to solve a generalized eigenvalue problem that computes a set of vectors $\{v_1, \dots, v_m\}$ such that $\nabla^2 \bar{f}(x)v_i = \lambda_i v_i$ and such that $\langle v_i, v_j \rangle_D = 0$ if $\lambda_i \neq \lambda_j$.
 
+Solving the generalized eigenvalue problem:
+$$
+(D^TD)\nabla^2 \bar{f}(x)v = \lambda (D^TD)v
+$$
+yields eigenvectors with the desired property. 
+
+This problem can be solved using scipy's generalized eigenvalue solver:
+
+```python
+true_dim_eigvals = scipy.linalg.eigh(a=(D.T@D) @ matHess, b=(D.T@D))
+```
+So to summarize, in order to confirm what we already know, that is the fact that $f$ is strongly convex, we can use jax to compute the hessian, reduce it to the proper dimension by applying $P$ and $D$ and compute its eigenvalues by solving a generalized eigenvalue solver. With this we can show that math holds up. I have yet to see a better use of our time
 
 ### Recovering the mistaken identity in matrix textbooks
 
-Now imagine we forget that in our embedded space the matrix of partial derivatives is not equal to the gradient. This is an important distinction and can 
+Now imagine we forget that our embedded space has an exotic inner product. We would think there is no subtelty in defining the gradient so we would take it to be the matrix of partial derivatives.  
+
+Had we done made this mistake in our computation of $\nabla \bar{f}$, we would have found that
+
+$$\nabla \bar{f}(x) = D^T \circ \text{vec} \circ \nabla g(\text{mat}(Dx)).$$
+
+This comes as a result of taking the transpose of the Jacobian instead of its Riesz representant. With some simplification, this yields
+
+$$\nabla \bar{f}(x) =  P \circ \text{vec}( \nabla g(\text{mat}(Dx)) + \nabla g(\text{mat}(Dx))^T - \text{diag}(\nabla g(\text{mat}(Dx)))).$$
+
+And since we're completely ignoring the subtelties coming from not having the canonical inner product, we would conclude that
+
+$$
+\begin{aligned}
+ \nabla {f}(x) &= \text{mat}(D \nabla \bar{f}(x)) \\\\
+ &=  \nabla g(\text{mat}(Dx)) + \nabla g(\text{mat}(Dx))^T - \text{diag}(\nabla g(\text{mat}(Dx))),
+\end{aligned}
+$$ 
+thus recovering the odd formula in the matrix cookbook. 
+
+This distinction of whether or not the gradient corresponds to the vector of partial derivatives or the Riesz representant of the Jacobian matters. It matters especially when the gradient is used in optimization. 
+
+The correct understanding of gradient is the Riesz representant of the Jacobian, as this is what will correspond to the direction of steepest descent.
+
+We can see this by trying to optimize the function $X \mapsto tr(X^2)$ over the set of $2\times 2$ symmetric matrices. Clearly $0$ is the argmin and from any symmetric initialization, the fastest way to $0$ is to go in a straight line in the space of eigenvalues. 
 
 ![grad](/img/trace-squared.png)
 *Gradient descent on $X \mapsto tr(X^2)$ with correct (black) and incorrect (red) gradients*
 
-Clearly, working with the incorrect understanding of gradients can leads to suboptimal convergence in iterative algorithms like gradient descent. This minor distinction matters.
+Working with the incorrect understanding of gradients can leads to suboptimal convergence in iterative algorithms like gradient descent. Hopefully this little factoid made this long read worthwhile.
 
 [^reference]: Shriram Srinivasan and Nishant Panda, 2019. _What is the gradient of a scalar function of a symmetric matrix?_. [arXiv preprint arXiv:1911.06491](https://arxiv.org/abs/1911.06491).
 
-[^brewer]: J. Brewer, "The gradient with respect to a symmetric matrix," in IEEE Transactions on Automatic Control, vol. 22, no. 2, pp. 265-267, April 1977, [doi: 10.1109/TAC.1977.1101459](https://doi.org/10.1109/TAC.1977.1101459).
+[^brewer]: J. Brewer, _The gradient with respect to a symmetric matrix_, in IEEE Transactions on Automatic Control, vol. 22, no. 2, pp. 265-267, April 1977, [doi: 10.1109/TAC.1977.1101459](https://doi.org/10.1109/TAC.1977.1101459).
 
 
