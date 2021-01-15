@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on SaturdayGenfo</title>
-    <link>saturdaygenfo.github.io/posts/</link>
+    <link>https://saturdaygenfo.github.io/posts/</link>
     <description>Recent content in Posts on SaturdayGenfo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>{year}</copyright>
-    <lastBuildDate>Fri, 27 Nov 2020 18:30:29 +0100</lastBuildDate><atom:link href="saturdaygenfo.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 27 Nov 2020 18:30:29 +0100</lastBuildDate><atom:link href="https://saturdaygenfo.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>The Symmetric gradient: an odd 40 year curiosity in matrix algebra</title>
-      <link>saturdaygenfo.github.io/posts/symmetric-gradients/</link>
+      <link>https://saturdaygenfo.github.io/posts/symmetric-gradients/</link>
       <pubDate>Fri, 27 Nov 2020 18:30:29 +0100</pubDate>
       
-      <guid>saturdaygenfo.github.io/posts/symmetric-gradients/</guid>
+      <guid>https://saturdaygenfo.github.io/posts/symmetric-gradients/</guid>
       <description>There should be nothing exceptionally difficult about differentiating with respect to symmetric matrices.
 Differentiation is defined over abstract spaces. And the set of real symmetric matrices $\mathbb{S}_n(\mathbb{R})$ is not particularly special. And yet, this past semester, Paul and I, along with a student, Aleksandr, ran into problems.
 It turns out that this problem of computing gradients with respect to a symmetric matrix is common enough that several confusing threads on mathoverflow on the topic exist.</description>

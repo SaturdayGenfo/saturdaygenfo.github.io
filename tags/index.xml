@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on SaturdayGenfo</title>
-    <link>saturdaygenfo.github.io/tags/</link>
+    <link>https://saturdaygenfo.github.io/tags/</link>
     <description>Recent content in Tags on SaturdayGenfo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <copyright>{year}</copyright><atom:link href="saturdaygenfo.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>{year}</copyright><atom:link href="https://saturdaygenfo.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
