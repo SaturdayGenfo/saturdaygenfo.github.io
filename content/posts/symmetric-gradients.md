@@ -12,7 +12,7 @@ Differentiation is defined over abstract spaces. And the set of real symmetric m
 
 It turns out that this problem of computing gradients with respect to a symmetric matrix is common enough that several confusing threads on mathoverflow on the topic exist. Each proposing slightly different solutions, with some, surprisingly, arguing that gradients of scalar functions of symmetric matrices aren't well defined. 
 
-This doesn't make sense. Again, there shouldn't be anything fancy required for computing gradients of symmetric matrices. Luckily for us, Shriram Srinivasan and Nishant Panda[^reference] pinpointed the root of the confusion: there were some imprecisions in the early litterature[^brewer] on the topic about what exactly we mean by _gradient_. This is led to the appearance of odd formulas making obscure what should be simple. 
+This doesn't make sense. Again, there shouldn't be anything fancy required for computing gradients of symmetric matrices. Luckily for us, Shriram Srinivasan and Nishant Panda[^reference] pinpointed the root of the confusion: there were some imprecisions early in the litterature[^brewer] on the topic about what exactly we mean by _gradient_. This is led to the appearance of odd formulas making obscure what should be simple. 
 
 At the heart of the confusion is the question: 
 ```
@@ -288,7 +288,7 @@ Clearly, any matrix having $0$ eigenvalues is in the argmin and from any initial
 - it is given the Riesz representant of the Jacobian acting on $(\mathbb{R}^m, \langle \cdot, \cdot \rangle_{D})$ (black path in figure)
 
 ![grad](/img/trace-squared.png)
-*Eigenvalues of iterates of Gradient Descent on $hat{h}$ with correct (black) and incorrect (red) gradients*
+*Eigenvalues of iterates of Gradient Descent on $\hat{h}$ with correct (black) and incorrect (red) gradients*
 
 As we can clearly see, working with the incorrect understanding of gradients can leads to suboptimal convergence in iterative algorithms like gradient descent. Hopefully this little factoid made this long read worthwhile.
 
