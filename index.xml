@@ -23,8 +23,8 @@
       <pubDate>Fri, 27 Nov 2020 18:30:29 +0100</pubDate>
       
       <guid>https://saturdaygenfo.github.io/posts/symmetric-gradients/</guid>
-      <description>There should be nothing exceptionally difficult about differentiating with respect to symmetric matrices.
-Differentiation is defined over abstract spaces. And the set of real symmetric matrices $\mathbb{S}_n(\mathbb{R})$ is not particularly special. And yet, this past semester, Paul and I, along with a student, Aleksandr, ran into problems.
+      <description>There shouldn&amp;rsquo;t be anything exceptionally difficult about differentiating with respect to symmetric matrices.
+Differentiation is defined over abstract spaces. And the set of real symmetric matrices $\mathbb{S}_n(\mathbb{R})$ is not special. And yet, this past semester, Paul and I, along with a student, Aleksandr, ran into problems.
 It turns out that this problem of computing gradients with respect to a symmetric matrix is common enough that several confusing threads on mathoverflow on the topic exist.</description>
     </item>
     
