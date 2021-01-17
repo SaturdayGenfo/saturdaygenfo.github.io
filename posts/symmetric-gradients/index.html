@@ -96,11 +96,11 @@
           </header>
           <article class="post__content">
               
-<p>There should be nothing exceptionally difficult about differentiating with respect to symmetric matrices.</p>
-<p>Differentiation is defined over abstract spaces. And the set of real symmetric matrices $\mathbb{S}_n(\mathbb{R})$ is not particularly special. And yet, this past semester, Paul and I, along with a student, Aleksandr, ran into problems.</p>
+<p>There shouldn&rsquo;t be anything exceptionally difficult about differentiating with respect to symmetric matrices.</p>
+<p>Differentiation is defined over abstract spaces. And the set of real symmetric matrices $\mathbb{S}_n(\mathbb{R})$ is not special. And yet, this past semester, Paul and I, along with a student, Aleksandr, ran into problems.</p>
 <p>It turns out that this problem of computing gradients with respect to a symmetric matrix is common enough that several confusing threads on mathoverflow on the topic exist. Each proposing slightly different solutions, with some, surprisingly, arguing that gradients of scalar functions of symmetric matrices aren&rsquo;t well defined.</p>
-<p>This doesn&rsquo;t make sense. Again, there should be nothing fancy required for computing gradients of symmetric matrices. Luckily for us, Shriram Srinivasan and Nishant Panda<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> pinpointed the root of the confusion: there were some imprecisions in the early litterature<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> on the topic about what exactly we mean by <em>gradient</em>. This is what led to the appearance of some odd formulas making obscure what should be simple.</p>
-<p>At the heart of the matter is the question:</p>
+<p>This doesn&rsquo;t make sense. Again, there shouldn&rsquo;t be anything fancy required for computing gradients of symmetric matrices. Luckily for us, Shriram Srinivasan and Nishant Panda<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> pinpointed the root of the confusion: there were some imprecisions in the early litterature<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> on the topic about what exactly we mean by <em>gradient</em>. This is led to the appearance of odd formulas making obscure what should be simple.</p>
+<p>At the heart of the confusion is the question:</p>
 <pre><code>Is the gradient the vector of partial derivatives or 
 is it the Riesz representant of the Jacobian ?
 </code></pre>
@@ -255,24 +255,31 @@ yields eigenvectors with the desired property.</p>
 <p>So to summarize, in order to confirm what we already know, that is the fact that $f$ is strongly convex, we can use jax to compute the hessian, reduce it to the proper dimension by applying $P$ and $D$ and compute its eigenvalues by solving a generalized eigenvalue solver. With this we can show that math holds up. I have yet to see a better use of our time</p>
 <h3 id="recovering-the-mistaken-identity-in-matrix-textbooks">Recovering the mistaken identity in matrix textbooks<a class="anchor" href="#recovering-the-mistaken-identity-in-matrix-textbooks">#</a></h3>
 <p>Now imagine we forget that our embedded space has an exotic inner product. We would think there is no subtelty in defining the gradient so we would take it to be the matrix of partial derivatives.</p>
-<p>Had we done made this mistake in our computation of $\nabla \bar{f}$, we would have found that</p>
+<p>Had we made this mistake in our computation of $\nabla \bar{f}$, we would have found that</p>
 <p>$$\nabla \bar{f}(x) = D^T \circ \text{vec} \circ \nabla g(\text{mat}(Dx)).$$</p>
 <p>This comes as a result of taking the transpose of the Jacobian instead of its Riesz representant. With some simplification, this yields</p>
 <p>$$\nabla \bar{f}(x) =  P \circ \text{vec}( \nabla g(\text{mat}(Dx)) + \nabla g(\text{mat}(Dx))^T - \text{diag}(\nabla g(\text{mat}(Dx)))).$$</p>
-<p>And since we&rsquo;re completely ignoring the subtelties coming from not having the canonical inner product, we would conclude that</p>
+<p>We would conclude that</p>
 <p>$$
 \begin{aligned}
 \nabla {f}(x) &amp;= \text{mat}(D \nabla \bar{f}(x)) \\<br>
 &amp;=  \nabla g(\text{mat}(Dx)) + \nabla g(\text{mat}(Dx))^T - \text{diag}(\nabla g(\text{mat}(Dx))),
 \end{aligned}
 $$
-thus recovering the odd formula in the matrix cookbook.</p>
-<p>This distinction of whether or not the gradient corresponds to the vector of partial derivatives or the Riesz representant of the Jacobian matters. It matters especially when the gradient is used in optimization.</p>
-<p>The correct understanding of gradient is the Riesz representant of the Jacobian, as this is what will correspond to the direction of steepest descent.</p>
-<p>We can see this by trying to optimize the function $X \mapsto tr(X^2)$ over the set of $2\times 2$ symmetric matrices. Clearly $0$ is the argmin and from any symmetric initialization, the fastest way to $0$ is to go in a straight line in the space of eigenvalues.</p>
+thus recovering the odd formula in the matrix cookbook. All this coming from our ignorance of the subtelties coming from not having the canonical inner product.</p>
+<p>This seemingly minor distinction of whether or not the gradient corresponds to the vector of partial derivatives or the Riesz representant of the Jacobian matters. It matters especially when the gradient is used in optimization.</p>
+<p>We can see this by trying to optimize the function $h: X \mapsto tr(X^2)$ over the set of $2\times 2$ symmetric matrices. To do so we, can identify this function $h: \mathbb{S}_n(\mathbb{R}) \to \mathbb{S}_n(\mathbb{R})$ with a function $\hat{h}: \mathbb{R}^m \to \mathbb{R}^m$ defined as
+$$
+\hat{h} : x \mapsto tr((\text{mat}(Dx))^2).
+$$</p>
+<p>Clearly, any matrix having $0$ eigenvalues is in the argmin and from any initialization, the fastest way to get from the initial eigenvalues to $0$ is to go in a straight line in the space of eigenvalues. We can then observe which paths gradient descent takes when</p>
+<ul>
+<li>it is given the vector of partial derivatives as <em>gradient</em> of $\hat{h}$ (red path in figure)</li>
+<li>it is given the Riesz representant of the Jacobian acting on $(\mathbb{R}^m, \langle \cdot, \cdot \rangle_{D})$ (black path in figure)</li>
+</ul>
 <p><img src="/img/trace-squared.png" alt="grad">
 <em>Gradient descent on $X \mapsto tr(X^2)$ with correct (black) and incorrect (red) gradients</em></p>
-<p>Working with the incorrect understanding of gradients can leads to suboptimal convergence in iterative algorithms like gradient descent. Hopefully this little factoid made this long read worthwhile.</p>
+<p>As we can clearly see, working with the incorrect understanding of gradients can leads to suboptimal convergence in iterative algorithms like gradient descent. Hopefully this little factoid made this long read worthwhile.</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
