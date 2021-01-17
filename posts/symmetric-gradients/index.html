@@ -99,7 +99,7 @@
 <p>There shouldn&rsquo;t be anything particularly difficult about differentiating with respect to symmetric matrices.</p>
 <p>Differentiation is defined over abstract spaces. And the set of real symmetric matrices $\mathbb{S}_n(\mathbb{R})$ is not special. And yet, this past semester, Paul and I, along with a student, Aleksandr, ran into problems.</p>
 <p>It turns out that this problem of computing gradients with respect to a symmetric matrix is common enough that several confusing threads on mathoverflow on the topic exist. Each proposing slightly different solutions, with some, surprisingly, arguing that gradients of scalar functions of symmetric matrices aren&rsquo;t well defined.</p>
-<p>This doesn&rsquo;t make sense. Again, there shouldn&rsquo;t be anything fancy required for computing gradients of symmetric matrices. Luckily for us, Shriram Srinivasan and Nishant Panda<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> pinpointed the root of the confusion: there were some imprecisions in the early litterature<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> on the topic about what exactly we mean by <em>gradient</em>. This is led to the appearance of odd formulas making obscure what should be simple.</p>
+<p>This doesn&rsquo;t make sense. Again, there shouldn&rsquo;t be anything fancy required for computing gradients of symmetric matrices. Luckily for us, Shriram Srinivasan and Nishant Panda<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> pinpointed the root of the confusion: there were some imprecisions early in the litterature<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> on the topic about what exactly we mean by <em>gradient</em>. This is led to the appearance of odd formulas making obscure what should be simple.</p>
 <p>At the heart of the confusion is the question:</p>
 <pre><code>Is the gradient the vector of partial derivatives or 
 is it the Riesz representant of the Jacobian ?
@@ -278,7 +278,7 @@ $$</p>
 <li>it is given the Riesz representant of the Jacobian acting on $(\mathbb{R}^m, \langle \cdot, \cdot \rangle_{D})$ (black path in figure)</li>
 </ul>
 <p><img src="/img/trace-squared.png" alt="grad">
-<em>Eigenvalues of iterates of Gradient Descent on $hat{h}$ with correct (black) and incorrect (red) gradients</em></p>
+<em>Eigenvalues of iterates of Gradient Descent on $\hat{h}$ with correct (black) and incorrect (red) gradients</em></p>
 <p>As we can clearly see, working with the incorrect understanding of gradients can leads to suboptimal convergence in iterative algorithms like gradient descent. Hopefully this little factoid made this long read worthwhile.</p>
 <section class="footnotes" role="doc-endnotes">
 <hr>
