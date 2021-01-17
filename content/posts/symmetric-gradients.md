@@ -6,15 +6,15 @@ math: true
 bibliography: references.bib  
 ---
 
-There should be nothing exceptionally difficult about differentiating with respect to symmetric matrices.
+There shouldn't be anything exceptionally difficult about differentiating with respect to symmetric matrices.
 
-Differentiation is defined over abstract spaces. And the set of real symmetric matrices $\mathbb{S}_n(\mathbb{R})$ is not particularly special. And yet, this past semester, Paul and I, along with a student, Aleksandr, ran into problems. 
+Differentiation is defined over abstract spaces. And the set of real symmetric matrices $\mathbb{S}_n(\mathbb{R})$ is not special. And yet, this past semester, Paul and I, along with a student, Aleksandr, ran into problems. 
 
 It turns out that this problem of computing gradients with respect to a symmetric matrix is common enough that several confusing threads on mathoverflow on the topic exist. Each proposing slightly different solutions, with some, surprisingly, arguing that gradients of scalar functions of symmetric matrices aren't well defined. 
 
-This doesn't make sense. Again, there should be nothing fancy required for computing gradients of symmetric matrices. Luckily for us, Shriram Srinivasan and Nishant Panda[^reference] pinpointed the root of the confusion: there were some imprecisions in the early litterature[^brewer] on the topic about what exactly we mean by _gradient_. This is what led to the appearance of some odd formulas making obscure what should be simple. 
+This doesn't make sense. Again, there shouldn't be anything fancy required for computing gradients of symmetric matrices. Luckily for us, Shriram Srinivasan and Nishant Panda[^reference] pinpointed the root of the confusion: there were some imprecisions in the early litterature[^brewer] on the topic about what exactly we mean by _gradient_. This is led to the appearance of odd formulas making obscure what should be simple. 
 
-At the heart of the matter is the question: 
+At the heart of the confusion is the question: 
 ```
 Is the gradient the vector of partial derivatives or 
 is it the Riesz representant of the Jacobian ?
@@ -257,7 +257,7 @@ So to summarize, in order to confirm what we already know, that is the fact that
 
 Now imagine we forget that our embedded space has an exotic inner product. We would think there is no subtelty in defining the gradient so we would take it to be the matrix of partial derivatives.  
 
-Had we done made this mistake in our computation of $\nabla \bar{f}$, we would have found that
+Had we made this mistake in our computation of $\nabla \bar{f}$, we would have found that
 
 $$\nabla \bar{f}(x) = D^T \circ \text{vec} \circ \nabla g(\text{mat}(Dx)).$$
 
@@ -265,7 +265,7 @@ This comes as a result of taking the transpose of the Jacobian instead of its Ri
 
 $$\nabla \bar{f}(x) =  P \circ \text{vec}( \nabla g(\text{mat}(Dx)) + \nabla g(\text{mat}(Dx))^T - \text{diag}(\nabla g(\text{mat}(Dx)))).$$
 
-And since we're completely ignoring the subtelties coming from not having the canonical inner product, we would conclude that
+We would conclude that
 
 $$
 \begin{aligned}
@@ -273,18 +273,24 @@ $$
  &=  \nabla g(\text{mat}(Dx)) + \nabla g(\text{mat}(Dx))^T - \text{diag}(\nabla g(\text{mat}(Dx))),
 \end{aligned}
 $$ 
-thus recovering the odd formula in the matrix cookbook. 
+thus recovering the odd formula in the matrix cookbook. All this coming from our ignorance of the subtelties coming from not having the canonical inner product.
 
-This distinction of whether or not the gradient corresponds to the vector of partial derivatives or the Riesz representant of the Jacobian matters. It matters especially when the gradient is used in optimization. 
+This seemingly minor distinction of whether or not the gradient corresponds to the vector of partial derivatives or the Riesz representant of the Jacobian matters. It matters especially when the gradient is used in optimization. 
 
-The correct understanding of gradient is the Riesz representant of the Jacobian, as this is what will correspond to the direction of steepest descent.
 
-We can see this by trying to optimize the function $X \mapsto tr(X^2)$ over the set of $2\times 2$ symmetric matrices. Clearly $0$ is the argmin and from any symmetric initialization, the fastest way to $0$ is to go in a straight line in the space of eigenvalues. 
+We can see this by trying to optimize the function $h: X \mapsto tr(X^2)$ over the set of $2\times 2$ symmetric matrices. To do so we, can identify this function $h: \mathbb{S}_n(\mathbb{R}) \to \mathbb{S}_n(\mathbb{R})$ with a function $\hat{h}: \mathbb{R}^m \to \mathbb{R}^m$ defined as 
+$$
+\hat{h} : x \mapsto tr((\text{mat}(Dx))^2).
+$$
+ 
+Clearly, any matrix having $0$ eigenvalues is in the argmin and from any initialization, the fastest way to get from the initial eigenvalues to $0$ is to go in a straight line in the space of eigenvalues. We can then observe which paths gradient descent takes when 
+- it is given the vector of partial derivatives as _gradient_ of $\hat{h}$ (red path in figure)
+- it is given the Riesz representant of the Jacobian acting on $(\mathbb{R}^m, \langle \cdot, \cdot \rangle_{D})$ (black path in figure)
 
 ![grad](/img/trace-squared.png)
 *Gradient descent on $X \mapsto tr(X^2)$ with correct (black) and incorrect (red) gradients*
 
-Working with the incorrect understanding of gradients can leads to suboptimal convergence in iterative algorithms like gradient descent. Hopefully this little factoid made this long read worthwhile.
+As we can clearly see, working with the incorrect understanding of gradients can leads to suboptimal convergence in iterative algorithms like gradient descent. Hopefully this little factoid made this long read worthwhile.
 
 [^reference]: Shriram Srinivasan and Nishant Panda, 2019. _What is the gradient of a scalar function of a symmetric matrix?_. [arXiv preprint arXiv:1911.06491](https://arxiv.org/abs/1911.06491).
 
