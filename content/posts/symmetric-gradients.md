@@ -6,7 +6,7 @@ math: true
 bibliography: references.bib  
 ---
 
-There shouldn't be anything exceptionally difficult about differentiating with respect to symmetric matrices.
+There shouldn't be anything particularly difficult about differentiating with respect to symmetric matrices.
 
 Differentiation is defined over abstract spaces. And the set of real symmetric matrices $\mathbb{S}_n(\mathbb{R})$ is not special. And yet, this past semester, Paul and I, along with a student, Aleksandr, ran into problems. 
 
@@ -288,7 +288,7 @@ Clearly, any matrix having $0$ eigenvalues is in the argmin and from any initial
 - it is given the Riesz representant of the Jacobian acting on $(\mathbb{R}^m, \langle \cdot, \cdot \rangle_{D})$ (black path in figure)
 
 ![grad](/img/trace-squared.png)
-*Gradient descent on $X \mapsto tr(X^2)$ with correct (black) and incorrect (red) gradients*
+*Eigenvalues of iterates of Gradient Descent on $hat{h}$ with correct (black) and incorrect (red) gradients*
 
 As we can clearly see, working with the incorrect understanding of gradients can leads to suboptimal convergence in iterative algorithms like gradient descent. Hopefully this little factoid made this long read worthwhile.
 
