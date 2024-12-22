@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Researches on SaturdayGenfo</title>
+    <title>Researches on Leello Dadi</title>
     <link>https://saturdaygenfo.github.io/research/</link>
-    <description>Recent content in Researches on SaturdayGenfo</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Researches on Leello Dadi</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>{year}</copyright>
-    <lastBuildDate>Fri, 27 Nov 2020 18:30:29 +0100</lastBuildDate><atom:link href="https://saturdaygenfo.github.io/research/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 27 Nov 2020 18:30:29 +0100</lastBuildDate>
+    <atom:link href="https://saturdaygenfo.github.io/research/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Generating Sparse Stochastic Processes</title>
       <link>https://saturdaygenfo.github.io/research/gen/</link>
       <pubDate>Fri, 27 Nov 2020 18:30:29 +0100</pubDate>
-      
       <guid>https://saturdaygenfo.github.io/research/gen/</guid>
-      <description>Test</description>
+      <description>&lt;p&gt;Test&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

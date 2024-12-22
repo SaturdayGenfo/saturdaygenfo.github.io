@@ -20,7 +20,7 @@ is it the Riesz representant of the Jacobian ?
 ```
 
 
-What follows is a dramatic retelling of our story with jax, the symmetric gradient and how to adapt the results in [^reference] for hessians.
+What follows is a retelling of our story with jax, the symmetric gradient and how to adapt the results in [^reference] for hessians.
 
 
 ## The hessian of a strongly convex function

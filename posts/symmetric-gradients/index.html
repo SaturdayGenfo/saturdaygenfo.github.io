@@ -2,113 +2,268 @@
 <html lang="en-us">
 
 <head>
-  <title>The Symmetric gradient: an odd 40 year curiosity in matrix algebra | SaturdayGenfo</title>
-
-  <meta charset="UTF-8">
-  <meta name="language" content="en">
-  <meta name="description" content="">
-  <meta name="keywords" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-  
-  
-
-  <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Symmetric gradient: an odd 40 year curiosity in matrix algebra | Leello Dadi</title>
+<meta name="title" content="The Symmetric gradient: an odd 40 year curiosity in matrix algebra" />
+<meta name="description" content="There shouldn&rsquo;t be anything particularly difficult about differentiating with respect to symmetric matrices.
+Differentiation is defined over abstract spaces. And the set of real symmetric matrices $\mathbb{S}_n(\mathbb{R})$ is not special. And yet, this past semester, Paul and I, along with a student, Aleksandr, ran into problems.
+It turns out that the problem of computing gradients with respect to a symmetric matrix is common: there are several, confusing mathoverflow threads on the topic. Each proposing slightly different solutions, with some, surprisingly, arguing that gradients of scalar functions of symmetric matrices aren&rsquo;t well defined." />
+<meta name="keywords" content="" />
 
 
-  
-  
-    
- 
-  
-  
-  
-  
-  
-  
-    
-    <link type="text/css" rel="stylesheet" href="/css/post.min.b60e0932fe1c50c3d7c5b4f83ee9e4592363654d0f2abf05bbd0678d5b8a214c.css" integrity="sha256-tg4JMv4cUMPXxbT4PunkWSNjZU0PKr8Fu9BnjVuKIUw="/>
-  
-    
-    <link type="text/css" rel="stylesheet" href="/css/custom.min.e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css" integrity="sha256-47DEQpj8HBSa&#43;/TImW&#43;5JCeuQeRkm5NMpJWZG3hSuFU="/>
-  
-  
+<meta property="og:url" content="https://saturdaygenfo.github.io/posts/symmetric-gradients/">
+  <meta property="og:site_name" content="Leello Dadi">
+  <meta property="og:title" content="The Symmetric gradient: an odd 40 year curiosity in matrix algebra">
+  <meta property="og:description" content="There shouldn’t be anything particularly difficult about differentiating with respect to symmetric matrices.
+Differentiation is defined over abstract spaces. And the set of real symmetric matrices $\mathbb{S}_n(\mathbb{R})$ is not special. And yet, this past semester, Paul and I, along with a student, Aleksandr, ran into problems.
+It turns out that the problem of computing gradients with respect to a symmetric matrix is common: there are several, confusing mathoverflow threads on the topic. Each proposing slightly different solutions, with some, surprisingly, arguing that gradients of scalar functions of symmetric matrices aren’t well defined.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-11-27T18:30:29+01:00">
+    <meta property="article:modified_time" content="2020-11-27T18:30:29+01:00">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="The Symmetric gradient: an odd 40 year curiosity in matrix algebra">
+  <meta name="twitter:description" content="There shouldn’t be anything particularly difficult about differentiating with respect to symmetric matrices.
+Differentiation is defined over abstract spaces. And the set of real symmetric matrices $\mathbb{S}_n(\mathbb{R})$ is not special. And yet, this past semester, Paul and I, along with a student, Aleksandr, ran into problems.
+It turns out that the problem of computing gradients with respect to a symmetric matrix is common: there are several, confusing mathoverflow threads on the topic. Each proposing slightly different solutions, with some, surprisingly, arguing that gradients of scalar functions of symmetric matrices aren’t well defined.">
+
+
+
+
+  <meta itemprop="name" content="The Symmetric gradient: an odd 40 year curiosity in matrix algebra">
+  <meta itemprop="description" content="There shouldn’t be anything particularly difficult about differentiating with respect to symmetric matrices.
+Differentiation is defined over abstract spaces. And the set of real symmetric matrices $\mathbb{S}_n(\mathbb{R})$ is not special. And yet, this past semester, Paul and I, along with a student, Aleksandr, ran into problems.
+It turns out that the problem of computing gradients with respect to a symmetric matrix is common: there are several, confusing mathoverflow threads on the topic. Each proposing slightly different solutions, with some, surprisingly, arguing that gradients of scalar functions of symmetric matrices aren’t well defined.">
+  <meta itemprop="datePublished" content="2020-11-27T18:30:29+01:00">
+  <meta itemprop="dateModified" content="2020-11-27T18:30:29+01:00">
+  <meta itemprop="wordCount" content="2607">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: #222;
+  }
+
+  a {
+    color: #3273dc;
+     
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    background-color: #f2f2f2;
+  }
+
+  pre code {
+    color: #222;
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 14px;
+    overflow-x: auto;
+  }
+
+  div.highlight pre {
+    background-color: initial;
+    color: initial;
+  }
+
+  div.highlight code {
+    background-color: unset;
+    color: unset;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: #222;
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: #777;
+    font-size: small;
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
    
-   
-    
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
 
-<script type="application/ld+json">
-  
-    { 
-      "@context": "http://schema.org", 
-      "@type": "WebSite", 
-      "url": "https:\/\/saturdaygenfo.github.io\/posts\/symmetric-gradients\/",
-      "name": "The Symmetric gradient: an odd 40 year curiosity in matrix algebra",
-      "author": {
-        "@type": "Person",
-        "name": ""
-      },
-      "description": ""
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: #8b6fcb;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333;
+      color: #ddd;
     }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b {
+      color: #eee;
+    }
+
+    a {
+      color: #8cc2dd;
+    }
+
+    code {
+      background-color: #777;
+    }
+
+    pre code {
+      color: #ddd;
+    }
+
+    blockquote {
+      color: #ccc;
+    }
+
+    textarea,
+    input {
+      background-color: #252525;
+      color: #ddd;
+    }
+
+    .helptext {
+      color: #aaa;
+    }
+  }
+
+</style>
+
+
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    }
+  };
+</script>
+
+
   
-  </script>
+
 </head>
 
 <body>
-  <div class="burger__container">
-  <div class="burger" aria-controls="navigation" aria-label="Menu">
-    <div class="burger__meat burger__meat--1"></div>
-    <div class="burger__meat burger__meat--2"></div>
-    <div class="burger__meat burger__meat--3"></div>
-  </div>
-</div>
- 
+  <header><a href="/" class="title">
+  <h2>Leello Dadi</h2>
+</a>
+<nav><a href="/">Home</a>
 
-  <nav class="nav" id="navigation">
-  <ul class="nav__list">
-    
-    
-      <li>
-        <a  href="/">about</a>
-      </li>
-    
-      <li>
-        <a  class="active"
-         href="/posts">posts</a>
-      </li>
-    
-  </ul>
+<a href="/">about</a>
+
+<a href="/posts">posts</a>
+
+
 </nav>
-
-
+</header>
   <main>
-    
-    
 
-    <div class="flex-wrapper">
-      <div class="post__container">
-        <div class="post">
-          <header class="post__header">
-            <h1 id="post__title">The Symmetric gradient: an odd 40 year curiosity in matrix algebra</h1>
-            <time datetime="2020-11-27 18:30:29 &#43;0100 CET" class="post__date">Nov 27 2020</time> 
-          </header>
-          <article class="post__content">
-              
-<p>There shouldn&rsquo;t be anything particularly difficult about differentiating with respect to symmetric matrices.</p>
+<content>
+  <p>There shouldn&rsquo;t be anything particularly difficult about differentiating with respect to symmetric matrices.</p>
 <p>Differentiation is defined over abstract spaces. And the set of real symmetric matrices $\mathbb{S}_n(\mathbb{R})$ is not special. And yet, this past semester, Paul and I, along with a student, Aleksandr, ran into problems.</p>
-<p>It turns out that this problem of computing gradients with respect to a symmetric matrix is common enough that several confusing threads on mathoverflow on the topic exist. Each proposing slightly different solutions, with some, surprisingly, arguing that gradients of scalar functions of symmetric matrices aren&rsquo;t well defined.</p>
+<p>It turns out that the problem of computing gradients with respect to a symmetric matrix is common: there are several, confusing mathoverflow threads on the topic. Each proposing slightly different solutions, with some, surprisingly, arguing that gradients of scalar functions of symmetric matrices aren&rsquo;t well defined.</p>
 <p>This doesn&rsquo;t make sense. Again, there shouldn&rsquo;t be anything fancy required for computing gradients of symmetric matrices. Luckily for us, Shriram Srinivasan and Nishant Panda<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> pinpointed the root of the confusion: there were some imprecisions early in the litterature<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup> on the topic about what exactly we mean by <em>gradient</em>. This is led to the appearance of odd formulas making obscure what should be simple.</p>
 <p>At the heart of the confusion is the question:</p>
 <pre><code>Is the gradient the vector of partial derivatives or 
 is it the Riesz representant of the Jacobian ?
 </code></pre>
-<p>What follows is a dramatic retelling of our story with jax, the symmetric gradient and how to adapt the results in <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> for hessians.</p>
-<h2 id="the-hessian-of-a-strongly-convex-function">The hessian of a strongly convex function<a class="anchor" href="#the-hessian-of-a-strongly-convex-function">#</a></h2>
-<p>Consider the strongly convex function $f$ over the set of real symmetric matrices defined as</p>
-<p>$$f:\begin{cases} \mathbb{S}_n(\mathbb{R}) \rightarrow \mathbb{R} \\  X \mapsto -\frac{1}{2}\left(\log(\det( I - X)) + \log(\det( I + X))\right) \end{cases}$$</p>
-<p>The strong convexity of $f$ implies that the hessian of $f$ should define a positive definite quadratic form. Since $f$ is a function taking as input $n\times n$ matrices, we expect, the hessian $\nabla^2 f$ to be an $n\times n \times n \times n$ monstrosity. Luckily automatic differentiation exists, so we can feed this function to <em>jax</em>&rsquo;s automatic differatiation engine, it will compute the hessian for us :</p>
+<p>What follows is a retelling of our story with jax, the symmetric gradient and how to adapt the results in <sup id="fnref1:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> for hessians.</p>
+<h2 id="the-hessian-of-a-strongly-convex-function">The hessian of a strongly convex function</h2>
+<p>Consider a strongly convex function $f$ over the set of real symmetric matrices defined as</p>
+$$f:\begin{cases} \mathbb{S}_n(\mathbb{R}) \rightarrow \mathbb{R} \\\\  X \mapsto -\frac{1}{2}\left(\log(\det( I - X)) + \log(\det( I + X))\right) \end{cases}$$<p>The strong convexity of $f$ implies that the hessian of $f$ should define a positive definite quadratic form. Since $f$ is a function taking as input $n\times n$ matrices, we expect, the hessian $\nabla^2 f$ to be an $n\times n \times n \times n$ monstrosity. Luckily automatic differentiation exists, so we can feed this function to <em>jax</em>&rsquo;s automatic differatiation engine, it will compute the hessian for us :</p>
 <pre><code class="language-python">from jax import grad, jacobian
 import jax.numpy as jnp
 
@@ -120,11 +275,9 @@ def f(X):
 
 tensorHess = jacobian(grad(f))
 </code></pre>
-<p>According to <em>jax</em> documentation, the returned object<code>tensorHess</code> is the $n\times n \times n \times n$ tensor whose coordinates are
 $$
-\text{tensorHess}_{i, j, k, l} = \frac{\partial f}{\partial x_{k,l} \partial x_{i,j}},
-$$</p>
-<p>for any $0 \leq i,j,k,l \leq n-1$ (using zero-indexing as God intended) .</p>
+\text{tensorHess}\_{i, j, k, l} = \frac{\partial f}{\partial x\_{k,l} \partial x\_{i,j}},
+$$<p>for any $0 \leq i,j,k,l \leq n-1$ (using zero-indexing as God intended) .</p>
 <p>In order to check that this hessian is indeed positive definite as theory predicts, we can first write it in matrix form, then, compute its eigenvalues to confirm that it is indeed  positive definite.</p>
 <p>The tensor <code>tensorHess</code>is just linear map from $\mathbb{R}^{n \times n}$  to $\mathbb{R}^{n \times n}$, so we can write it as a linear map from $\mathbb{R}^{n^2}$ to $\mathbb{R}^{n^2}$ as long as we define a vectorization (or flattening) of the elements of $\mathbb{R}^{n \times n}$.</p>
 <p>A straightforward flattening of matrices $\text{vec} : \mathbb{R}^{n \times n} \rightarrow \mathbb{R}^{n^2}$ can be obtained by chaining the rows next to each other and transposing to obtain a vector in $\mathbb{R}^{n^2}$. In python, this flattening would correspond to the function</p>
@@ -137,10 +290,8 @@ $$</p>
 </code></pre>
 <p>The corresponding reverse operation $\text{mat} : \mathbb{R}^{n^2} \rightarrow \mathbb{R}^{n\times n}$ can easily be derived by dividing the vector into chunks of size $n$ and stacking the chunks into rows. It turns out that these operations are exactly what numpy&rsquo;s <code>reshape</code> function does !</p>
 <p>With this flattening in hand, we can write the matrix version $M_{hess}$ of <code>tensorHess</code> by using the definition of the partial derivative, i.e the fact that</p>
-<p>$$\text{vec}(E_{k,l})^TM_{hess}\text{vec}(E_{i,j}) = \frac{\partial f}{\partial x_{k,l} \partial x_{i,j}} =\text{tensorHess}_{i, j, k, l}.$$</p>
-<p>Now since $\text{vec}(E_{i,j})$ is a vector with a single $1$ at the $i\times n + j$ coordinate, we find that</p>
-<p>$$[M_{hess}]_{p, q} = \text{tensorHess}_{\lfloor \frac{p}{n} \rfloor, \; p\;\mathbf{ mod }\; n, \lfloor \frac{q}{n} \rfloor, \; q;\mathbf{ mod }\; n\;}.$$</p>
-<p>In python, this would yield the following <code>matrixify</code> function :</p>
+$$\text{vec}(E_{k,l})^TM_{hess}\text{vec}(E_{i,j}) = \frac{\partial f}{\partial x_{k,l} \partial x_{i,j}} =\text{tensorHess}_{i, j, k, l}.$$<p>Now since $\text{vec}(E_{i,j})$ is a vector with a single $1$ at the $i\times n + j$ coordinate, we find that</p>
+$$[M_{hess}]_{p, q} = \text{tensorHess}_{\lfloor \frac{p}{n} \rfloor, \\; p\\;\mathbf{ mod }\\; n, \lfloor \frac{q}{n} \rfloor, \\; q\;\mathbf{ mod }\\; n\\;}.$$<p>In python, this would yield the following <code>matrixify</code> function :</p>
 <pre><code class="language-python">def matrixify(tensor):
     mat = np.zeros((n*n, n*n))
     for i in range(n):
@@ -151,7 +302,7 @@ $$</p>
     return mat
 </code></pre>
 <p>This, luckily for us, is again the <em>exact</em> procedure used by default in numpy&rsquo;s <code>reshape</code> function ! We can finally test if, as theory predicts, the hessian is positive definite by computing its eigenvalues.</p>
-<h2 id="testing-positive-definiteness">Testing positive definiteness<a class="anchor" href="#testing-positive-definiteness">#</a></h2>
+<h2 id="testing-positive-definiteness">Testing positive definiteness</h2>
 <p>In order to test that $f$ is positive definite. We pick a random point within the domain of $f$ and compute the eigenvalues of the hessian at that point :</p>
 <pre><code class="language-python">
 #Picking a random point within the domain of f
@@ -181,98 +332,75 @@ for i in range(len(eigvals)):
 <p>Our function being defined over symmetric matrices, all the considered directions when computing differentials should be symmetric. So the existence of this negative eigenvalue is not proof of a mistake in convexity theory. But rather, it show us that there might be an issue coming from our interpretation of the automatic differentiation procedure.</p>
 <p>Remember that from <em>jax</em>&rsquo;s point of view, the symmetry constraint on the coefficients of the input does not exist. <em>jax</em> computes the partial derivatives as if we could move each coordinate independently of one another. The hessian computed by <em>jax</em> is therefore &ldquo;too big&rdquo; in some sense, it contains information along too many directions, some of which are not allowed.</p>
 <p>In other words, <em>jax</em> isn&rsquo;t computing the hessian of $f$ but the hessian of</p>
-<p>$$g: \begin{cases}  {\mathbb{R}^{n\times n}} \rightarrow \mathbb{R} \\  X \mapsto -\frac{1}{2}\left(\log(\det( I - X)) + \log(\det( I + X))\right) \end{cases}$$</p>
-<p>a function over ${\mathbb{R}^{n\times n}}$ that, when restricted to $\mathbb{S}_n(\mathbb{R})$ gives $f$. So how can we relate the &ldquo;larger&rdquo; jacobians $J_{\nabla g}$ and $J_g$ to $J_{\nabla f}$ and $J_f$ ?</p>
-<h2 id="going-from-a-differential-over-mathbbrntimes-n-to-a-differential-over-mathbbs_nmathbbr">Going from a differential over $\mathbb{R}^{n\times n}$ to a differential over $\mathbb{S}_n(\mathbb{R})$.<a class="anchor" href="#going-from-a-differential-over-mathbbrntimes-n-to-a-differential-over-mathbbs_nmathbbr">#</a></h2>
+$$g: \begin{cases}  {\mathbb{R}^{n\times n}} \rightarrow \mathbb{R} \\\\  X \mapsto -\frac{1}{2}\left(\log(\det( I - X)) + \log(\det( I + X))\right) \end{cases}$$<p>a function over ${\mathbb{R}^{n\times n}}$ that, when restricted to $\mathbb{S}\_n(\mathbb{R})$ gives $f$. So how can we relate the &ldquo;larger&rdquo; jacobians $J_{\nabla g}$ and $J_g$ to $J\_{\nabla f}$ and $J\_f$ ?</p>
+<h2 id="going-from-a-differential-over-mathbbrntimes-n-to-a-differential-over-mathbbs_nmathbbr">Going from a differential over $\mathbb{R}^{n\times n}$ to a differential over $\mathbb{S}_n(\mathbb{R})$.</h2>
 <p>This is the question that led to various odd results in matrix algebra. If we look it up in the matrix cookbook, we find the following:</p>
 <p><img src="/img/cookbook.png" alt="matrixcookbookformula"></p>
-<p>If we translate it to our setting, it would mean $$\nabla f = \nabla g + (\nabla g)^T - \text{diag}(\nabla g).$$ This results contradicts what we would find by simply looking at the definition of jacobians. Recall that the jacobian of g, denoted $J_g$, is the <em>unique</em> linear map from $\mathbb{R}^{n\times n}$ to $\mathbb{R}$ such that for all $X \in \mathbb{R}^{n\times n}$,</p>
-<p>$$g(X + H) - g(X)  = J_{g(X)}(H) + o( \| H\|),$$</p>
-<p>for any $H \in \mathbb{R}^{n\times n}$. In particular this implies that, when we restrict to symmetric $X$ and $H$, we have</p>
-<p>$$f(X + H) - f(X)  = J_{g(X)}(H) + o( \| H\|).$$</p>
-<p>So by unicity of the linear map we conclude that $J_f = J_{g|\mathbb{S}_n(\mathbb{R})}$, i.e., $J_f$ is just the restriction of $J_g$ to $\mathbb{S}_n(\mathbb{R})$. Writing restriction of domains as projections of the input variable, we can write</p>
-<p>$$J_f \circ \text{sym} = J_{g|\mathbb{S}_n(\mathbb{R})} = J_g \circ \text{sym},$$</p>
-<p>where $\text{sym}$ is the orthogonal projection onto $\mathbb{S}_n(\mathbb{R})$ given by $\text{sym}(M) = \frac{1}{2}\left( M + M^T\right)$. Transposing to obtain the gradient we find</p>
-<p>$$\text{sym}(\nabla f) = \text{sym} (\nabla g) \implies \nabla f = \text{sym} (\nabla g),$$</p>
-<p>since orthgonal projections are self-adjoint. Similarly for the hessians, we obtain</p>
-<p>$$\text{sym} \circ J_{\nabla f} \circ \text{sym} = \text{sym} \circ J_{\nabla g} \circ \text{sym} \implies J_{\nabla f} \circ \text{sym} = \text{sym} \circ J_{\nabla g} \circ \text{sym}.$$</p>
-<p>The relationships between differentials over $\mathbb{R}^{n\times n}$ with differentials over $\mathbb{S}_n(\mathbb{R})$ is therefore a simple intuitive relation that comes from restricting the domain of the larger differential.</p>
+$$\nabla f = \nabla g + (\nabla g)^T - \text{diag}(\nabla g).$$<p> This results contradicts what we would find by simply looking at the definition of jacobians. Recall that the jacobian of g, denoted $J_g$, is the <em>unique</em> linear map from $\mathbb{R}^{n\times n}$ to $\mathbb{R}$ such that for all $X \in \mathbb{R}^{n\times n}$,</p>
+$$g(X + H) - g(X)  = J_{g(X)}(H) + o( \\| H\\|),$$<p>for any $H \in \mathbb{R}^{n\times n}$. In particular this implies that, when we restrict to symmetric $X$ and $H$, we have</p>
+$$f(X + H) - f(X)  = J_{g(X)}(H) + o( \\| H\\|).$$<p>So by unicity of the linear map we conclude that $J_f = J_{g|\mathbb{S}_n(\mathbb{R})}$, i.e., $J_f$ is just the restriction of $J_g$ to $\mathbb{S}_n(\mathbb{R})$. Writing restriction of domains as projections of the input variable, we can write</p>
+$$J_f \circ \text{sym} = J_{g|\mathbb{S}_n(\mathbb{R})} = J_g \circ \text{sym},$$<p>where $\text{sym}$ is the orthogonal projection onto $\mathbb{S}_n(\mathbb{R})$ given by $\text{sym}(M) = \frac{1}{2}\left( M + M^T\right)$. Transposing to obtain the gradient we find</p>
+$$\text{sym}(\nabla f) = \text{sym} (\nabla g) \implies \nabla f = \text{sym} (\nabla g),$$<p>since orthgonal projections are self-adjoint. Similarly for the hessians, we obtain</p>
+$$\text{sym} \circ J_{\nabla f} \circ \text{sym} = \text{sym} \circ J_{\nabla g} \circ \text{sym} \implies J_{\nabla f} \circ \text{sym} = \text{sym} \circ J_{\nabla g} \circ \text{sym}.$$<p>The relationships between differentials over $\mathbb{R}^{n\times n}$ with differentials over $\mathbb{S}_n(\mathbb{R})$ is therefore a simple intuitive relation that comes from restricting the domain of the larger differential.</p>
 <p>A simple projection gives the symmetric gradient, not some odd formula treating the diagonal differently.</p>
 <p>With this knowledge in hand, we can obtain the eigenvalues of the hessian of $f$ by computing the eigenvalues of</p>
-<p>$$\text{matrixify}(\text{sym}) \cdot \text{matrixify}(\text{tensorHess}) \cdot \text{matrixify}(\text{sym}).$$</p>
-<p>By simply excluding the zero eigenvalues coming from non-symmetric eigenvectors, we can obtain the eigenvalues of the hessian. But this exclusion of eigenvalues requires us to check the associated eigenvectors to do the elimination procedure. It turns out there is another way that doesn&rsquo;t involve costly eliminations.</p>
+$$\text{matrixify}(\text{sym}) \cdot \text{matrixify}(\text{tensorHess}) \cdot \text{matrixify}(\text{sym}).$$<p>By simply excluding the zero eigenvalues coming from non-symmetric eigenvectors, we can obtain the eigenvalues of the hessian. But this exclusion of eigenvalues requires us to check the associated eigenvectors to do the elimination procedure. It turns out there is another way that doesn&rsquo;t involve costly eliminations.</p>
 <p>There are only $m = \frac{n(n+1)}{2}$ effectively free variables because of the symmetry constraint, so why not reduce the hessian into a hessian in this smaller space ? We can then compute the eigenvalues in a more direct fashion.</p>
-<h3 id="a-derivative-in-the-right-space">A derivative in the right space<a class="anchor" href="#a-derivative-in-the-right-space">#</a></h3>
+<h3 id="a-derivative-in-the-right-space">A derivative in the right space</h3>
 <p>In order to derive a procedure to &ldquo;reduce&rdquo; the jax hessian, we need to first define a two essential linear operators.  Let  $P \in \mathbb{R}^{m \times n^2}$ be the matrix that, given a flattened symmetric matrix, strips away duplicate entries in such that</p>
-<p>$$\forall M \in \mathbb{S}_n(\mathbb{R}), \; v = P\text{vec}(M) \in \mathbb{R}^m.$$</p>
-<p>And let $D \in \mathbb{R}^{n^2 \times m}$ be the inverse operation that duplicates the entries of a vector in $\mathbb{R}^m$ so that it corresponds to the flattening in $\mathbb{R}^{n^2}$ of a symmetric matrix:
-$$\forall v \in \mathbb{R}^m, M = \text{mat}(Dv) \in \mathbb{S}_n(\mathbb{R}).$$</p>
-<p>With $P$ and $D$ in hand, the space $\mathbb{S}_n(\mathbb{R})$ of dimension $m = \frac{n(n+1)}{2}$ can be identified with the space $\mathbb{R}^m$ since  we can associate each symmetric matrix $M$ to a vector $v_M \in \mathbb{R}^m$ and vice versa.</p>
+$$\forall M \in \mathbb{S}_n(\mathbb{R}), \\; v = P\text{vec}(M) \in \mathbb{R}^m.$$$$\forall v \in \mathbb{R}^m, M = \text{mat}(Dv) \in \mathbb{S}_n(\mathbb{R}).$$<p>With $P$ and $D$ in hand, the space $\mathbb{S}_n(\mathbb{R})$ of dimension $m = \frac{n(n+1)}{2}$ can be identified with the space $\mathbb{R}^m$ since  we can associate each symmetric matrix $M$ to a vector $v_M \in \mathbb{R}^m$ and vice versa.</p>
 <p>Now comes the subtle point : let us compare the inner products in the original space $\mathbb{S}_n(\mathbb{R})$ with the inner products after the embedding:</p>
-<p>$$\begin{aligned} \forall M, N\in \mathbb{S}_n(\mathbb{R}), \; \; \; \langle M, N \rangle_F  &amp; = \langle  \text{mat}(Dv_M) ,  \text{mat}(Dv_N)  \rangle_F \\ &amp;= \langle  Dv_M ,  Dv_N  \rangle_{\mathbb{R}^{n^2}}  \\ &amp; = \langle  D^TD v_M,  v_N  \rangle_{\mathbb{R}^{m}} \\ &amp;  {\neq \langle  v_M,  v_N  \rangle_{\mathbb{R}^{m}}}\end{aligned}$$</p>
-<p>We therefore <strong>cannot</strong> take the canonical inner product in $\mathbb{R}^m$ if we wish to have an embedding that preserves inner products and norms. The isometric embedding we choose to work in is the one that associates a symmetric matrix $M$ to a vector $v_m$ in the space $(\mathbb{R}^m, \langle \cdot, \cdot \rangle_{D})$ where the inner product is defined as</p>
-<p>$$\forall u, v \in \mathbb{R}^m, \langle u, v \rangle_D =  \langle  D^TD u,  v  \rangle_{\mathbb{R}^{m}}.$$</p>
-<p>Going back to our function $f$, if we take note of the symmetry constraints in the domain, we can see that $f :  \mathbb{S}_n(\mathbb{R}) \rightarrow \mathbb{R}$ can be identified with a function $\bar{f}: \mathbb{R}^m \rightarrow \mathbb{R}$ where</p>
-<p>$$\bar{f}(x) = g(\text{mat}(Dx))$$</p>
-<p>With the chain rule, we can compute the Jacobian of $\bar{f}$. We find that</p>
-<p>$$J_{\bar{f}} (x) = J_g(\text{mat}(Dx)) \circ J_\text{mat}(Dx) \circ J_D(x) = J_g(\text{mat}(Dx)) \circ \text{mat} \circ D.$$</p>
-<p>The Jacobian we have just obtained is a linear map from $(\mathbb{R}^m, \langle \cdot, \cdot \rangle_{D})$ to $\mathbb{R}$.  Had the inner product in $\mathbb{R}^m$ been the canonical one, we would have obtained the gradient by simply transposing. In our case however, we have to put in some some work. The gradient is the Riesz representant of the Jacobian, and when the inner product is exotic, simply transposing won&rsquo;t do. With a few simple manipulations left for the appendix, we find that</p>
-<p>$$\nabla \bar{f}(x) = (\text{mat} \circ D)^T \circ \nabla g(\text{mat}(Dx)) = P \circ \text{vec} \circ \nabla g(\text{mat}(Dx))$$</p>
-<p>To obtain the hessian, we can again compute the jacobian of the gradient using the chain rule, we find that</p>
-<p>$$\nabla^2 \bar{f}(x) = P \circ \text{vec} \circ J_{\nabla g}(\text{mat}(Dx)) \circ \text{mat} \circ D = P \circ \text{matrixify}(J_{\nabla g}(\text{mat}(Dx))) \circ D$$</p>
-<p>Here we used the fact that, by definition of the <em>matrixification</em> procedure,  $\text{vec} \circ J_{\nabla g}(\text{mat}(Dx)) \circ \text{mat} = \text{matrixify}(J_{\nabla g}(\text{mat}(Dx)))$.</p>
+$$\begin{aligned} \forall M, N\in \mathbb{S}\_n(\mathbb{R}), \\; \\; \\; \langle M, N \rangle_F  & = \langle  \text{mat}(Dv_M) ,  \text{mat}(Dv_N)  \rangle_F \\\\ &= \langle  Dv_M ,  Dv_N  \rangle_{\mathbb{R}^{n^2}}  \\\\ & = \langle  D^TD v_M,  v_N  \rangle_{\mathbb{R}^{m}} \\\\ &  {\neq \langle  v_M,  v_N  \rangle_{\mathbb{R}^{m}}}\end{aligned}$$<p>We therefore <strong>cannot</strong> take the canonical inner product in $\mathbb{R}^m$ if we wish to have an embedding that preserves inner products and norms. The isometric embedding we choose to work in is the one that associates a symmetric matrix $M$ to a vector $v_m$ in the space $(\mathbb{R}^m, \langle \cdot, \cdot \rangle_{D})$ where the inner product is defined as</p>
+$$\forall u, v \in \mathbb{R}^m, \langle u, v \rangle_D =  \langle  D^TD u,  v  \rangle_{\mathbb{R}^{m}}.$$<p>Going back to our function $f$, if we take note of the symmetry constraints in the domain, we can see that $f :  \mathbb{S}_n(\mathbb{R}) \rightarrow \mathbb{R}$ can be identified with a function $\bar{f}: \mathbb{R}^m \rightarrow \mathbb{R}$ where</p>
+$$\bar{f}(x) = g(\text{mat}(Dx))$$<p>With the chain rule, we can compute the Jacobian of $\bar{f}$. We find that</p>
+$$J_{\bar{f}} (x) = J_g(\text{mat}(Dx)) \circ J_\text{mat}(Dx) \circ J_D(x) = J_g(\text{mat}(Dx)) \circ \text{mat} \circ D.$$<p>The Jacobian we have just obtained is a linear map from $(\mathbb{R}^m, \langle \cdot, \cdot \rangle_{D})$ to $\mathbb{R}$.  Had the inner product in $\mathbb{R}^m$ been the canonical one, we would have obtained the gradient by simply transposing. In our case however, we have to put in some some work. The gradient is the Riesz representant of the Jacobian, and when the inner product is exotic, simply transposing won&rsquo;t do. With a few simple manipulations left for the appendix, we find that</p>
+$$\nabla \bar{f}(x) = (\text{mat} \circ D)^T \circ \nabla g(\text{mat}(Dx)) = P \circ \text{vec} \circ \nabla g(\text{mat}(Dx))$$<p>To obtain the hessian, we can again compute the jacobian of the gradient using the chain rule, we find that</p>
+$$\nabla^2 \bar{f}(x) = P \circ \text{vec} \circ J_{\nabla g}(\text{mat}(Dx)) \circ \text{mat} \circ D = P \circ \text{matrixify}(J_{\nabla g}(\text{mat}(Dx))) \circ D$$<p>Here we used the fact that, by definition of the <em>matrixification</em> procedure,  $\text{vec} \circ J_{\nabla g}(\text{mat}(Dx)) \circ \text{mat} = \text{matrixify}(J_{\nabla g}(\text{mat}(Dx)))$.</p>
 <p>We have our reduction ! We simply apply $P$ and $D$ to <code>matHess</code> and it will give us $\nabla^2 \bar{f}$ which, by strong convexity of $\bar{f}$, is certainly positive definite because in$(\mathbb{R}^m, \langle \cdot, \cdot \rangle_{D})$, we do not exclude any directions.</p>
 <p>But wait how would we compute eigenvalues of a linear map acting in $(\mathbb{R}^m, \langle \cdot, \cdot \rangle_{D})$ ?</p>
-<h3 id="relating-the-eigenvalues-of-the-smaller-hessian-and-the-jax-hessian">Relating the eigenvalues of the smaller hessian and the jax hessian<a class="anchor" href="#relating-the-eigenvalues-of-the-smaller-hessian-and-the-jax-hessian">#</a></h3>
+<h3 id="relating-the-eigenvalues-of-the-smaller-hessian-and-the-jax-hessian">Relating the eigenvalues of the smaller hessian and the jax hessian</h3>
 <p>Let $\lambda$ be an eigenvalue of <code>matHess</code> at $x$ with associated symmetric eigenvector $M=\text{mat}(Dv)$. Then,</p>
-<p>$$
-\begin{aligned}
-\nabla^2 \bar{f}(x) v &amp;= P \circ \text{matrixify}(J_{\nabla g}(\text{mat}(Dx))) \circ D v \\<br>
-&amp;= P (\lambda \cdot Dv) \\<br>
-&amp;= \lambda PD v \\<br>
-&amp;= \lambda v.
-\end{aligned}
 $$
-Any eigenvalue of <code>matHess</code> corresponding to a symmetric eigenvector is also an eigenvalue of $\nabla^2 \bar{f}(x)$. Reciprocally, if $\lambda$ is an eigenvalue of $\nabla^2 \bar{f}(x)$ with associated eigenvector $v$, then,
-$$
-\begin{aligned}
-\lambda v &amp;= \nabla^2 \bar{f}(x) v = P \circ \text{matrixify}(J_{\nabla g}(\text{mat}(Dx))) \circ D v \\<br>
-\lambda v &amp;= P \text{matHess(x)}Dv \\<br>
-\lambda D v &amp;= DP \text{matHess(x)} Dv\\<br>
-\lambda D v &amp;= \text{matHess(x)} Dv.
-\end{aligned}
-$$
+    \begin{aligned}
+        \nabla^2 \bar{f}(x) v &= P \circ \text{matrixify}(J_{\nabla g}(\text{mat}(Dx))) \circ D v \\\\
+        &= P (\lambda \cdot Dv) \\\\
+        &= \lambda PD v \\\\
+        &= \lambda v.
+    \end{aligned}
+   $$$$
+    \begin{aligned}
+        \lambda v &= \nabla^2 \bar{f}(x) v = P \circ \text{matrixify}(J_{\nabla g}(\text{mat}(Dx))) \circ D v \\\\
+       \lambda v &= P \text{matHess(x)}Dv \\\\
+        \lambda D v &= DP \text{matHess(x)} Dv\\\\
+       \lambda D v &= \text{matHess(x)} Dv.
+    \end{aligned}
+   $$<p>
 The eigenvalues of $\nabla^2 \bar{f}(x)$ entirely capture the behavior of <code>matHess</code> when restricted to symmetric matrices. Now all we need is a way to compute them.</p>
-<p>Since we are living in a space with an exotic inner product, the vanilla <code>eigh</code> function of numpy/scipy won&rsquo;t do. Indeed, the eigenvectors of the symmetric matrix $\nabla^2 \bar{f}(x)$ should define an orthormal basis in $(\mathbb{R}^m, \langle \cdot, \cdot \rangle_{D})$. To find them, we need to solve a generalized eigenvalue problem that computes a set of vectors ${v_1, \dots, v_m}$ such that $\nabla^2 \bar{f}(x)v_i = \lambda_i v_i$ and such that $\langle v_i, v_j \rangle_D = 0$ if $\lambda_i \neq \lambda_j$.</p>
-<p>Solving the generalized eigenvalue problem:
+<p>Since we are living in a space with an exotic inner product, the vanilla <code>eigh</code> function of numpy/scipy won&rsquo;t do. Indeed, the eigenvectors of the symmetric matrix $\nabla^2 \bar{f}(x)$ should define an orthormal basis in $(\mathbb{R}^m, \langle \cdot, \cdot \rangle_{D})$. To find them, we need to solve a generalized eigenvalue problem that computes a set of vectors $\{v_1, \dots, v_m\}$ such that $\nabla^2 \bar{f}(x)v_i = \lambda_i v_i$ and such that $\langle v_i, v_j \rangle_D = 0$ if $\lambda_i \neq \lambda_j$.</p>
 $$
 (D^TD)\nabla^2 \bar{f}(x)v = \lambda (D^TD)v
-$$
+$$<p>
 yields eigenvectors with the desired property.</p>
 <p>This problem can be solved using scipy&rsquo;s generalized eigenvalue solver:</p>
 <pre><code class="language-python">true_dim_eigvals = scipy.linalg.eigh(a=(D.T@D) @ matHess, b=(D.T@D))
 </code></pre>
 <p>So to summarize, in order to confirm what we already know, that is the fact that $f$ is strongly convex, we can use jax to compute the hessian, reduce it to the proper dimension by applying $P$ and $D$ and compute its eigenvalues by solving a generalized eigenvalue solver. With this we can show that math holds up. I have yet to see a better use of our time</p>
-<h3 id="recovering-the-mistaken-identity-in-matrix-textbooks">Recovering the mistaken identity in matrix textbooks<a class="anchor" href="#recovering-the-mistaken-identity-in-matrix-textbooks">#</a></h3>
+<h3 id="recovering-the-mistaken-identity-in-matrix-textbooks">Recovering the mistaken identity in matrix textbooks</h3>
 <p>Now imagine we forget that our embedded space has an exotic inner product. We would think there is no subtelty in defining the gradient so we would take it to be the matrix of partial derivatives.</p>
 <p>Had we made this mistake in our computation of $\nabla \bar{f}$, we would have found that</p>
-<p>$$\nabla \bar{f}(x) = D^T \circ \text{vec} \circ \nabla g(\text{mat}(Dx)).$$</p>
-<p>This comes as a result of taking the transpose of the Jacobian instead of its Riesz representant. With some simplification, this yields</p>
-<p>$$\nabla \bar{f}(x) =  P \circ \text{vec}( \nabla g(\text{mat}(Dx)) + \nabla g(\text{mat}(Dx))^T - \text{diag}(\nabla g(\text{mat}(Dx)))).$$</p>
-<p>We would conclude that</p>
-<p>$$
-\begin{aligned}
-\nabla {f}(x) &amp;= \text{mat}(D \nabla \bar{f}(x)) \\<br>
-&amp;=  \nabla g(\text{mat}(Dx)) + \nabla g(\text{mat}(Dx))^T - \text{diag}(\nabla g(\text{mat}(Dx))),
-\end{aligned}
+$$\nabla \bar{f}(x) = D^T \circ \text{vec} \circ \nabla g(\text{mat}(Dx)).$$<p>This comes as a result of taking the transpose of the Jacobian instead of its Riesz representant. With some simplification, this yields</p>
+$$\nabla \bar{f}(x) =  P \circ \text{vec}( \nabla g(\text{mat}(Dx)) + \nabla g(\text{mat}(Dx))^T - \text{diag}(\nabla g(\text{mat}(Dx)))).$$<p>We would conclude that</p>
 $$
+\begin{aligned}
+ \nabla {f}(x) &= \text{mat}(D \nabla \bar{f}(x)) \\\\
+ &=  \nabla g(\text{mat}(Dx)) + \nabla g(\text{mat}(Dx))^T - \text{diag}(\nabla g(\text{mat}(Dx))),
+\end{aligned}
+$$<p>
 thus recovering the odd formula in the matrix cookbook. All this coming from our ignorance of the subtelties coming from not having the canonical inner product.</p>
 <p>This seemingly minor distinction of whether or not the gradient corresponds to the vector of partial derivatives or the Riesz representant of the Jacobian matters. It matters especially when the gradient is used in optimization.</p>
-<p>We can see this by trying to optimize the function $h: X \mapsto tr(X^2)$ over the set of $2\times 2$ symmetric matrices. To do so we, can identify this function $h: \mathbb{S}_n(\mathbb{R}) \to \mathbb{S}_n(\mathbb{R})$ with a function $\hat{h}: \mathbb{R}^m \to \mathbb{R}^m$ defined as
 $$
 \hat{h} : x \mapsto tr((\text{mat}(Dx))^2).
-$$</p>
-<p>Clearly, any matrix having $0$ eigenvalues is in the argmin and from any initialization, the fastest way to get from the initial eigenvalues to $0$ is to go in a straight line in the space of eigenvalues. We can then observe which paths gradient descent takes when</p>
+$$<p>Clearly, any matrix having $0$ eigenvalues is in the argmin and from any initialization, the fastest way to get from the initial eigenvalues to $0$ is to go in a straight line in the space of eigenvalues. We can then observe which paths gradient descent takes when</p>
 <ul>
 <li>it is given the vector of partial derivatives as <em>gradient</em> of $\hat{h}$ (red path in figure)</li>
 <li>it is given the Riesz representant of the Jacobian acting on $(\mathbb{R}^m, \langle \cdot, \cdot \rangle_{D})$ (black path in figure)</li>
@@ -280,101 +408,28 @@ $$</p>
 <p><img src="/img/trace-squared.png" alt="grad">
 <em>Eigenvalues of iterates of Gradient Descent on $\hat{h}$ with correct (black) and incorrect (red) gradients</em></p>
 <p>As we can clearly see, working with the incorrect understanding of gradients can leads to suboptimal convergence in iterative algorithms like gradient descent. Hopefully this little factoid made this long read worthwhile.</p>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
-<p>Shriram Srinivasan and Nishant Panda, 2019. <em>What is the gradient of a scalar function of a symmetric matrix?</em>. <a href="https://arxiv.org/abs/1911.06491" 
-  
-   target="_blank" rel="noreferrer noopener" 
->arXiv preprint arXiv:1911.06491</a>
-. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1">
+<p>Shriram Srinivasan and Nishant Panda, 2019. <em>What is the gradient of a scalar function of a symmetric matrix?</em>. <a href="https://arxiv.org/abs/1911.06491">arXiv preprint arXiv:1911.06491</a>.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a>&#160;<a href="#fnref1:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:2" role="doc-endnote">
-<p>J. Brewer, <em>The gradient with respect to a symmetric matrix</em>, in IEEE Transactions on Automatic Control, vol. 22, no. 2, pp. 265-267, April 1977, <a href="https://doi.org/10.1109/TAC.1977.1101459" 
-  
-   target="_blank" rel="noreferrer noopener" 
->doi: 10.1109/TAC.1977.1101459</a>
-. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:2">
+<p>J. Brewer, <em>The gradient with respect to a symmetric matrix</em>, in IEEE Transactions on Automatic Control, vol. 22, no. 2, pp. 265-267, April 1977, <a href="https://doi.org/10.1109/TAC.1977.1101459">doi: 10.1109/TAC.1977.1101459</a>.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
-
-
-              
-                  
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_SVG"></script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-            showMathMenu: false, //disables context menu
-            tex2jax: {
-            inlineMath: [ ['$','$'], ['\\(','\\)'] ]
-           }
-    });
-</script>
-              
-          </article>
-          
-
- <div class="pagination">
-  
-
-  
 </div>
 
-          
-          <footer class="post__footer">
-            
-
-
-<div class="social-icons">
+</content>
+<p>
   
-     
-    
-      <a class="social-icons__link" rel="me" title="Email"
-         href="mailto:leello.tadesse@gmail.com"
-         target="_blank" rel="noopener">
-        <div class="social-icons__icon" style="background-image: url('https://saturdaygenfo.github.io/svg/email.svg')"></div>
-      </a>
-    
-  
-     
-    
-      <a class="social-icons__link" rel="me" title="GitHub"
-         href="https://github.com/SaturdayGenfo"
-         target="_blank" rel="noopener">
-        <div class="social-icons__icon" style="background-image: url('https://saturdaygenfo.github.io/svg/github.svg')"></div>
-      </a>
-    
-     
-</div>
-
-            <p>2021</p>
-          </footer>
-          </div>
-      </div>
-      
-    </div>
-    
+</p>
 
   </main>
+  <footer>Made with <a href="https://github.com/janraasch/hugo-bearblog/">Hugo ʕ•ᴥ•ʔ Bear</a>
+</footer>
 
-   
-
-  
-  <script src="/js/index.min.49e4d8a384357d9b445b87371863419937ede9fa77737522ffb633073aebfa44.js" integrity="sha256-SeTYo4Q1fZtEW4c3GGNBmTft6fp3c3Ui/7YzBzrr&#43;kQ=" crossorigin="anonymous"></script>
-  
-  
-  <script src="https://unpkg.com/prismjs@1.20.0/components/prism-core.min.js"></script>
-
-  
-  <script src="https://unpkg.com/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js"
-    data-autoloader-path="https://unpkg.com/prismjs@1.20.0/components/"></script>
-
-  
-
-
+    
 </body>
 
 </html>
