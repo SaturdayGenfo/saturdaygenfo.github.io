@@ -5,3 +5,9 @@
 	path = public
 	url = https://github.com/SaturdayGenfo/saturdaygenfo.github.io.git
 	branch = main
+[submodule "hugoweb/leellodadi/themes/hugo-bearblog"]
+	path = hugoweb/leellodadi/themes/hugo-bearblog
+	url = https://github.com/janraasch/hugo-bearblog.git
+[submodule "themes/hugo-bearblog"]
+	path = themes/hugo-bearblog
+	url = https://github.com/janraasch/hugo-bearblog.git

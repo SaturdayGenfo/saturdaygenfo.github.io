@@ -1,16 +1,15 @@
----
-title: "The Symmetric gradient: an odd 40 year curiosity in matrix algebra"
-date: 2020-11-27T18:30:29+01:00
-draft: false 
-math: true
-bibliography: references.bib  
----
++++
+title = "The Symmetric gradient: an odd 40 year curiosity in matrix algebra"
+date = 2020-11-27T18:30:29+01:00
+draft = false 
+math = true 
++++
 
 There shouldn't be anything particularly difficult about differentiating with respect to symmetric matrices.
 
 Differentiation is defined over abstract spaces. And the set of real symmetric matrices $\mathbb{S}_n(\mathbb{R})$ is not special. And yet, this past semester, Paul and I, along with a student, Aleksandr, ran into problems. 
 
-It turns out that this problem of computing gradients with respect to a symmetric matrix is common enough that several confusing threads on mathoverflow on the topic exist. Each proposing slightly different solutions, with some, surprisingly, arguing that gradients of scalar functions of symmetric matrices aren't well defined. 
+It turns out that the problem of computing gradients with respect to a symmetric matrix is common: there are several, confusing mathoverflow threads on the topic. Each proposing slightly different solutions, with some, surprisingly, arguing that gradients of scalar functions of symmetric matrices aren't well defined. 
 
 This doesn't make sense. Again, there shouldn't be anything fancy required for computing gradients of symmetric matrices. Luckily for us, Shriram Srinivasan and Nishant Panda[^reference] pinpointed the root of the confusion: there were some imprecisions early in the litterature[^brewer] on the topic about what exactly we mean by _gradient_. This is led to the appearance of odd formulas making obscure what should be simple. 
 
@@ -26,7 +25,7 @@ What follows is a dramatic retelling of our story with jax, the symmetric gradie
 
 ## The hessian of a strongly convex function
 
-Consider the strongly convex function $f$ over the set of real symmetric matrices defined as
+Consider a strongly convex function $f$ over the set of real symmetric matrices defined as
 
 $$f:\begin{cases} \mathbb{S}_n(\mathbb{R}) \rightarrow \mathbb{R} \\\\  X \mapsto -\frac{1}{2}\left(\log(\det( I - X)) + \log(\det( I + X))\right) \end{cases}$$  
 
