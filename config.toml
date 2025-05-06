@@ -35,11 +35,11 @@ copyright = "{year}"
           inline = [['$', '$']]
 
 # Controls the navigation
-[[menu.main]]
-  identifier = "about"
-  name = "about"
-  title = "About"
-  url = "/"
+#[[menu.main]]
+#  identifier = "about"
+#  name = "about"
+# title = "About"
+#  url = "/"
 
 [[menu.main]]
   identifier = "posts"
