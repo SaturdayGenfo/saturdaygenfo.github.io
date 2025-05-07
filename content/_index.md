@@ -10,6 +10,4 @@ I am a PhD student at EPFL, advised by Volkan Cevher. I obtained an applied math
 I am broadly interested in randomness and computation. I have worked on the role of random noise in generalization, on the convergence of randomized strategies in multi-agent games, and I'm currently interested in sampling and diffusion models.
 
 
-## Research
-
-{{partial "pubs.html" .}}
+## Research (full list [here](https://scholar.google.com/citations?user=bhAxvCIAAAAJ&hl=en))

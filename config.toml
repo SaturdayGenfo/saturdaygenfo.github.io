@@ -47,4 +47,10 @@ copyright = "{year}"
   title = "Posts"
   url = "/posts"
 
+[[menu.main]]
+  identifier = "resume"
+  name = "Resume/CV"
+  title = "Resume/CV"
+  url = "/files/DadiResume.pdf"
+
 
