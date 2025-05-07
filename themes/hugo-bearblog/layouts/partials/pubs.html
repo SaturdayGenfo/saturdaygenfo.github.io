@@ -1,0 +1,68 @@
+<div class="publications-list">
+    {{ if .Site.Data.publications }}
+      <ul>
+        {{/* Sort publications by year in descending order, then by title */}}
+        {{ $sortedPublications := sort .Site.Data.publications "year" "desc"  }}
+  
+        {{ range $sortedPublications }}
+          <li class="publication-item">
+            <strong class="publication-title">{{ .title }}</strong><br>
+            <span class="publication-authors"><em>{{ .authors }}</em></span><br>
+            <span class="publication-venue">{{ .venue }}</span>,
+            <span class="publication-year">{{ .year }}</span>.
+  
+            <span class="publication-links">
+              {{ if .pdf_url }}
+                [<a href="{{ .pdf_url | relURL }}" target="_blank">PDF</a>]
+              {{ end }}
+              {{ if .doi_url }}
+                [<a href="{{ .doi_url | safeURL }}" target="_blank">DOI</a>]
+              {{ end }}
+              {{ if .preprint_url }}
+                [<a href="{{ .preprint_url | safeURL }}" target="_blank">Preprint</a>]
+              {{ end }}
+              {{ if .code_url }}
+                [<a href="{{ .code_url | safeURL }}" target="_blank">Code</a>]
+              {{ end }}
+            </span>
+  
+            {{ if .abstract }}
+              <p class="publication-abstract">
+                <strong>Abstract:</strong> {{ .abstract | markdownify }}
+              </p>
+            {{ end }}
+          </li>
+        {{ end }}
+      </ul>
+    {{ else }}
+      <p>No publications found. Please add them to <code>data/publications.yaml</code>.</p>
+    {{ end }}
+  </div>
+  
+  <style>
+    /* Basic styling - move to your main CSS file for better organization */
+    .publications-list ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .publication-item {
+      margin-bottom: 1.5em;
+      padding-bottom: 1em;
+      border-bottom: 1px solid #eee;
+    }
+    .publication-item:last-child {
+      border-bottom: none;
+    }
+    .publication-title {
+      font-size: 1.1em;
+      color: #aaa;
+    }
+    .publication-links a {
+      margin-left: 5px;
+    }
+    .publication-abstract {
+      font-size: 0.9em;
+      color: #555;
+      margin-top: 0.5em;
+    }
+  </style>
