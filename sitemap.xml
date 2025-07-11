@@ -2,13 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://saturdaygenfo.github.io/research/gen/</loc>
-    <lastmod>2020-11-27T18:30:29+01:00</lastmod>
-  </url><url>
     <loc>https://saturdaygenfo.github.io/</loc>
-    <lastmod>2020-11-27T18:30:29+01:00</lastmod>
+    <lastmod>2025-07-11T18:30:29+01:00</lastmod>
   </url><url>
     <loc>https://saturdaygenfo.github.io/posts/</loc>
+    <lastmod>2025-07-11T18:30:29+01:00</lastmod>
+  </url><url>
+    <loc>https://saturdaygenfo.github.io/posts/lladapyramid/</loc>
+    <lastmod>2025-07-11T15:36:12+02:00</lastmod>
+  </url><url>
+    <loc>https://saturdaygenfo.github.io/research/gen/</loc>
     <lastmod>2020-11-27T18:30:29+01:00</lastmod>
   </url><url>
     <loc>https://saturdaygenfo.github.io/research/</loc>

@@ -7,8 +7,15 @@
     <generator>Hugo</generator>
     <language>en-us</language>
     <copyright>{year}</copyright>
-    <lastBuildDate>Fri, 27 Nov 2020 18:30:29 +0100</lastBuildDate>
+    <lastBuildDate>Fri, 11 Jul 2025 15:36:12 +0200</lastBuildDate>
     <atom:link href="https://saturdaygenfo.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>trivial improvements on the re-masking strategy of llada</title>
+      <link>https://saturdaygenfo.github.io/posts/lladapyramid/</link>
+      <pubDate>Fri, 11 Jul 2025 15:36:12 +0200</pubDate>
+      <guid>https://saturdaygenfo.github.io/posts/lladapyramid/</guid>
+      <description>&lt;h1 id=&#34;trivial-improvements-on-the-re-masking-strategy-of-llada&#34;&gt;trivial improvements on the re-masking strategy of llada&lt;/h1&gt;&#xA;&lt;p&gt;an auto-regressive (AR) language model generates a single token per function call or neural function evaluation (NFE). Language diffusion models are interesting because, in principle, they could generate more tokens per NFE.&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://ml-gsai.github.io/LLaDA-demo/&#34;&gt;llada&lt;/a&gt; is, at the time of writing, the largest masked language diffusion model that is competitive with AR models.  Its best results are achieved when the number of function calls equals the number of generated tokens. In the paper, the authors report performance as a function of the NFEs. As expected, performance improves when the NFEs are increased to match the generated length of 1024 in the plots below:&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Generating Sparse Stochastic Processes</title>
       <link>https://saturdaygenfo.github.io/research/gen/</link>

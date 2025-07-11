@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>trivial improvements on the re-masking strategy of llada | Leello Dadi</title>
+<meta name="title" content="trivial improvements on the re-masking strategy of llada" />
+<meta name="description" content="trivial improvements on the re-masking strategy of llada
+an auto-regressive (AR) language model generates a single token per function call or neural function evaluation (NFE). Language diffusion models are interesting because, in principle, they could generate more tokens per NFE.
+llada is, at the time of writing, the largest masked language diffusion model that is competitive with AR models.  Its best results are achieved when the number of function calls equals the number of generated tokens. In the paper, the authors report performance as a function of the NFEs. As expected, performance improves when the NFEs are increased to match the generated length of 1024 in the plots below:" />
+<meta name="keywords" content="" />
+
+
+<meta property="og:url" content="https://saturdaygenfo.github.io/posts/lladapyramid/">
+  <meta property="og:site_name" content="Leello Dadi">
+  <meta property="og:title" content="trivial improvements on the re-masking strategy of llada">
+  <meta property="og:description" content="trivial improvements on the re-masking strategy of llada an auto-regressive (AR) language model generates a single token per function call or neural function evaluation (NFE). Language diffusion models are interesting because, in principle, they could generate more tokens per NFE.
+llada is, at the time of writing, the largest masked language diffusion model that is competitive with AR models. Its best results are achieved when the number of function calls equals the number of generated tokens. In the paper, the authors report performance as a function of the NFEs. As expected, performance improves when the NFEs are increased to match the generated length of 1024 in the plots below:">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-07-11T15:36:12+02:00">
+    <meta property="article:modified_time" content="2025-07-11T15:36:12+02:00">
+
+
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="trivial improvements on the re-masking strategy of llada">
+  <meta name="twitter:description" content="trivial improvements on the re-masking strategy of llada an auto-regressive (AR) language model generates a single token per function call or neural function evaluation (NFE). Language diffusion models are interesting because, in principle, they could generate more tokens per NFE.
+llada is, at the time of writing, the largest masked language diffusion model that is competitive with AR models. Its best results are achieved when the number of function calls equals the number of generated tokens. In the paper, the authors report performance as a function of the NFEs. As expected, performance improves when the NFEs are increased to match the generated length of 1024 in the plots below:">
+
+
+
+
+  <meta itemprop="name" content="trivial improvements on the re-masking strategy of llada">
+  <meta itemprop="description" content="trivial improvements on the re-masking strategy of llada an auto-regressive (AR) language model generates a single token per function call or neural function evaluation (NFE). Language diffusion models are interesting because, in principle, they could generate more tokens per NFE.
+llada is, at the time of writing, the largest masked language diffusion model that is competitive with AR models. Its best results are achieved when the number of function calls equals the number of generated tokens. In the paper, the authors report performance as a function of the NFEs. As expected, performance improves when the NFEs are increased to match the generated length of 1024 in the plots below:">
+  <meta itemprop="datePublished" content="2025-07-11T15:36:12+02:00">
+  <meta itemprop="dateModified" content="2025-07-11T15:36:12+02:00">
+  <meta itemprop="wordCount" content="1305">
+<meta name="referrer" content="no-referrer-when-downgrade" />
+
+  <style>
+  body {
+    font-family: Verdana, sans-serif;
+    margin: auto;
+    padding: 20px;
+    max-width: 720px;
+    text-align: left;
+    background-color: #fff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+    color: #444;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  strong,
+  b {
+    color: #222;
+  }
+
+  a {
+    color: #3273dc;
+     
+  }
+
+  .title {
+    text-decoration: none;
+    border: 0;
+  }
+
+  .title span {
+    font-weight: 400;
+  }
+
+  nav a {
+    margin-right: 10px;
+  }
+
+  textarea {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  input {
+    font-size: 16px;
+  }
+
+  content {
+    line-height: 1.6;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  code {
+    padding: 2px 5px;
+    background-color: #f2f2f2;
+  }
+
+  pre code {
+    color: #222;
+    display: block;
+    padding: 20px;
+    white-space: pre-wrap;
+    font-size: 14px;
+    overflow-x: auto;
+  }
+
+  div.highlight pre {
+    background-color: initial;
+    color: initial;
+  }
+
+  div.highlight code {
+    background-color: unset;
+    color: unset;
+  }
+
+  blockquote {
+    border-left: 1px solid #999;
+    color: #222;
+    padding-left: 20px;
+    font-style: italic;
+  }
+
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .helptext {
+    color: #777;
+    font-size: small;
+  }
+
+  .errorlist {
+    color: #eba613;
+    font-size: small;
+  }
+
+   
+  ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+  }
+
+  ul.blog-posts li {
+    display: flex;
+  }
+
+  ul.blog-posts li span {
+    flex: 0 0 130px;
+  }
+
+  ul.blog-posts li a:visited {
+    color: #8b6fcb;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      background-color: #333;
+      color: #ddd;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    strong,
+    b {
+      color: #eee;
+    }
+
+    a {
+      color: #8cc2dd;
+    }
+
+    code {
+      background-color: #777;
+    }
+
+    pre code {
+      color: #ddd;
+    }
+
+    blockquote {
+      color: #ccc;
+    }
+
+    textarea,
+    input {
+      background-color: #252525;
+      color: #ddd;
+    }
+
+    .helptext {
+      color: #aaa;
+    }
+  }
+
+</style>
+
+
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<script>
+  MathJax = {
+    tex: {
+      displayMath: [['\\[', '\\]'], ['$$', '$$']],  
+      inlineMath: [['$', '$']]                  
+    }
+  };
+</script>
+
+
+  
+
+</head>
+
+<body>
+  <header><a href="/" class="title">
+  <h2>Leello Dadi</h2>
+</a>
+<nav><a href="/">Home</a>
+
+<a href="/posts">posts</a>
+
+<a href="/files/dadiresume.pdf">Resume/CV</a>
+
+
+</nav>
+</header>
+  <main>
+
+<content>
+  <h1 id="trivial-improvements-on-the-re-masking-strategy-of-llada">trivial improvements on the re-masking strategy of llada</h1>
+<p>an auto-regressive (AR) language model generates a single token per function call or neural function evaluation (NFE). Language diffusion models are interesting because, in principle, they could generate more tokens per NFE.</p>
+<p><a href="https://ml-gsai.github.io/LLaDA-demo/">llada</a> is, at the time of writing, the largest masked language diffusion model that is competitive with AR models.  Its best results are achieved when the number of function calls equals the number of generated tokens. In the paper, the authors report performance as a function of the NFEs. As expected, performance improves when the NFEs are increased to match the generated length of 1024 in the plots below:</p>
+<p><img src="/img/lladanfefig.png" alt="lladacurves"></p>
+<p>ideally, the plots would have looked more like an early saturating curve, because, in a perfect world, fewer NFEs would be able to match the performance higher NFEs. visually, we would expect:</p>
+<p><img src="/img/ideal.png" alt="ideal"></p>
+<p>unfortunately the experiments show a curve that does not saturate early. if the NFEs needed to make language diffusion models competitive equals the number of generated tokens, it would defeat the purpose of making a language diffusion model. an AR model would have cost the same and thousands (millions?) of people have already made AR models really good.</p>
+<h2 id="re-masking-and-sampling-steps-in-llada">re-masking and sampling steps in llada</h2>
+<p>why can&rsquo;t we pick fewer NFEs in llada? Two parameters set the token per NFE ratio in llada: the desired number of output tokens <code>gen_length</code> and the number of steps <code>steps</code> used to output them.</p>
+<p>llada first begins with a fully masked sequence. At each step, llada unmasks all tokens but only preserves <code>gen_length/steps</code> tokens for the next round. Those tokens are either randomly chosen or selected according to the model confidence. The rest are re-masked before the next step.</p>
+<p>if the number of steps is small then at each step a lot of tokens are preserved. Here is what happens at the first step when asking llada-8b-Base to unmask a fully masked sequence:</p>
+<pre><code>Input: Hi, I am &lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt;&lt;|mdm_mask|&gt; 
+Unmasked: Hi, I am 10 years old and I I I........ I I I I....... I I.. I
+</code></pre>
+<p>the unmasked sequence is full of terrible repeated predictions like <code>I</code> and <code>.</code>.  The random masking strategy is very likely to preserve those bad tokens. Indeed, here is what happens when trying to generate 32 tokens in 4 steps (this means 8 tokens are kept at each round):</p>
+<pre><code>step 0, Keeping: [' I', '.', '.', ' I', '.', '.', '.', '.']
+step 1, Keeping: ['\n', '.', ' years', ' am', '.', ' a', '5', '\n'] 
+step 2, Keeping: ['\n', '\n', ' .', '.', '\n', '.', ' .', ' I']
+step 3, Keeping: ['\n', '\n', '1', '.', '\n', '.', ' student', ' old']
+
+Final output: Hi, I am 15 years old. I am a student..
+. 
+.. 
+. . 
+.. I. 
+. 
+. . I
+</code></pre>
+<p>the model preserved a very large number of <code>.</code> in the first round and struggles to fill in the tokens from there. Clearly, the model struggles to unmask fully masked sequences. Preserving a constant number of tokens at each round seems like a very poor choice. Early rounds should preserve fewer tokens, and later ones should preserve more tokens.</p>
+<h2 id="a-single-line-edit-to-improve-performance">a single line edit to improve performance</h2>
+<p>instead of picking a uniform random masking strategy, the most basic strategy we can replace it with is a pyramidal one.  At the first step 1 token is preserved, 2 at the next step, 3 at the following until <code>steps</code> rounds. This generates <code>steps*(steps-1)/2</code> tokens meaning that we perform roughly square root(<code>gen_tokens</code>) NFEs. This <em>pyramidal</em> strategy can be implemented in a single line edit in llada&rsquo;s generate function. At <a href="https://github.com/ML-GSAI/LLaDA/blob/3f5e0d047382695c4c96224774d074d99e16befa/generate.py#L103">line 103</a> which sets <code>k</code> to in <code>topk</code> function :</p>
+<p><img src="/img/codescreen.png" alt="codeline"></p>
+<p>we can replace it by</p>
+<pre><code class="language-[python]">k = i+1
+</code></pre>
+<p>this is clearly a better choice</p>
+<pre><code class="language-[Pyramidal]">Keeping: ['.'] 
+Keeping: [' ', '0']
+Keeping: [' and', ' to', ' I'] 
+Keeping: ['0', ' for', ' I', '.'] 
+Keeping: [' been', ' I', ' get', ' years', ' a'] 
+Keeping: [' want', ' a', ' to', ' in', ' in', ' Recently'] 
+Keeping: ['3', ',', ' have', ' as', '1', ' years', ' old'] 
+Keeping: [' want', ' working', ',', 'formatics', ' job', ' teacher', ' know', ' So'] 
+Keeping: [' years', '0', ' ', '3', ',', 'Hi', ' I', ' am', ' old'] 
+
+Final output: Hi, I am 30 years old and I have been working as a teacher for 10 years. Recently, I want to get a job in informatics. So, I want to know
+</code></pre>
+<p>had we kept the uniform strategy we would have obtained</p>
+<pre><code class="language-[Uniform">Keeping: ['.', '.', ' I', '.'] 
+Keeping: [' ', '0', ' I', ' years'] 
+Keeping: ['.', ' it', '.', '.'] 
+Keeping: [' years', ' for', ' ', ' '] 
+Keeping: [' have', ' to', ' ', '2'] 
+Keeping: [' lose', ' this', ' lbs', ' is'] 
+Keeping: ['3', '2', ' weight', ' carrying'] 
+Keeping: ['5', ' been', ' want', ' currently'] 
+Keeping: [' My', '1', ' weight', ' old'] 
+
+Final output: Hi, I am 30 years old. I have been carrying this weight for 2 years.. I want to lose it. My weight is currently 12.5 lbs.
+</code></pre>
+<p>notice that under the uniform strategy, the model commits to too many <code>.</code> at the beginning and cannot recover from the two consecutive <code>.</code> chosen.</p>
+<p>formally defined, the pyramidal strategy says: if we want to generate <code>gen_length</code> tokens, we can choose <code>steps = int((2*gen_length)**0.5) + 1</code> and keep <code>k=i+1</code> tokens at each step <code>i</code>. if we can afford to take more steps we can dilate the pyramid:</p>
+<p><img src="/img/dilation.png" alt="dilation"></p>
+<p>in equation form, if we wish to dilate the pyramid by a <code>factor</code> and generate <code>gen_length</code> tokens, we must take
+<code>steps = int(factor*(1 + 8 * gen_length/factor)**0.5/2)</code>
+and, at each step, pick <code>k = i//factor+1</code> tokens. the modified <code>generate</code> function is provided at the end of this post.</p>
+<h2 id="eval-results-with-the-pyramidal-strategy-on-humaneval">eval results with the pyramidal strategy on humaneval</h2>
+<p>i found the cheaper eval to run was the HumanEval code generation benchmark. here is what is obtained with the pyramidal strategy and low-confidence re-masking:</p>
+<p><img src="/img/humaneval.png" alt="evalscores"></p>
+<p>the basic pyramidal strategy is much closer to the expected ideal behavior and easily outperforms the llada strategy.</p>
+<h2 id="llada-does-not-feel-like-a-real-diffusion-model">llada does not feel like a &lsquo;real&rsquo; diffusion model</h2>
+<p>the pyramidal sampling strategy is too simple, the authors of llada, i&rsquo;m sure, must have explored similar things. these trivial improvements are not the interesting research direction. the better question to investigate is why there aren&rsquo;t large language diffusion models designed to re-mask previously unmasked tokens. A large language diffusion model that commits too early to tokens and doesn&rsquo;t reset its early decisions is missing the essence of a diffusion model.</p>
+<hr>
+<h6 id="the-modified-generate-function">the modified <code>generate</code> function:</h6>
+<pre><code class="language-python">
+def generate(model, prompt, factor=1, gen_length=128, block_length=128, temperature=0.,
+             cfg_scale=0., remasking='low_confidence', mask_id=126336):
+
+    x = torch.full((1, prompt.shape[1] + gen_length), mask_id, dtype=torch.long).to(model.device)
+    x[:, :prompt.shape[1]] = prompt.clone()
+
+    prompt_index = (x != mask_id)
+
+    assert gen_length % block_length == 0
+    num_blocks = gen_length // block_length
+    
+    steps = int(factor*(1 + 8 * gen_length/factor)**0.5/2)
+
+    for num_block in range(num_blocks):
+        block_mask_index = (x[:, prompt.shape[1] + num_block * block_length: prompt.shape[1] + (num_block + 1) * block_length:] == mask_id)
+        for i in range(steps):
+            if i &gt; gen_length:
+                break
+            mask_index = (x == mask_id)
+            if cfg_scale &gt; 0.:
+                un_x = x.clone()
+                un_x[prompt_index] = mask_id
+                x_ = torch.cat([x, un_x], dim=0)
+                logits = model(x_).logits
+                logits, un_logits = torch.chunk(logits, 2, dim=0)
+                logits = un_logits + (cfg_scale + 1) * (logits - un_logits)
+            else:
+                logits = model(x).logits
+
+            logits_with_noise = add_gumbel_noise(logits, temperature=temperature)
+            x0 = torch.argmax(logits_with_noise, dim=-1) # b, l
+
+            if remasking == 'low_confidence':
+                p = F.softmax(logits, dim=-1)
+                x0_p = torch.squeeze(
+                    torch.gather(p, dim=-1, index=torch.unsqueeze(x0, -1)), -1) # b, l
+            elif remasking == 'random':
+                x0_p = torch.rand((x0.shape[0], x0.shape[1]), device=x0.device)
+            else:
+                raise NotImplementedError(remasking)
+
+            x0_p[:, prompt.shape[1] + (num_block + 1) * block_length:] = -np.inf
+
+            x0 = torch.where(mask_index, x0, x)
+            confidence = torch.where(mask_index, x0_p, -np.inf)
+
+            transfer_index = torch.zeros_like(x0, dtype=torch.bool, device=x0.device)
+            for j in range(confidence.shape[0]):
+                _, select_index = torch.topk(confidence[j], k=i//factor+1)
+                transfer_index[j, select_index] = True
+            x[transfer_index] = x0[transfer_index]
+
+    return x
+</code></pre>
+
+</content>
+<p>
+  
+</p>
+
+  </main>
+  <footer>Made with <a href="https://github.com/janraasch/hugo-bearblog/">Hugo ʕ•ᴥ•ʔ Bear</a>
+</footer>
+
+    
+</body>
+
+</html>
